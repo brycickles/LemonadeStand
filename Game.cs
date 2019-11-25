@@ -41,13 +41,23 @@ namespace LemonadeStand_3DayStarter
         // member methods
         public void RunGame()
         {
+            string input = "";
             //turn it to int currentday
             foreach(var currentDay in days)
             {
+                //welcome message to display at start of each day. 
                 int counter = 1; 
                 currentDay.Welcome(player.wallet, player.inventory, counter);
                 counter++;
-                store.DisplayStore();
+
+                //handles all buying requirements before learning about the weather. 
+                store.DisplayStore(player.wallet, player);
+
+                //get the weather 
+
+                //make lemonade
+
+                //run game
             }
 
         }

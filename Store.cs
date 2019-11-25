@@ -79,10 +79,50 @@ namespace LemonadeStand_3DayStarter
             wallet.PayMoneyForItems(transactionAmount);
         }
 
-        public void DisplayStore()
+        public void DisplayStore(Wallet wallet, Player player)
         {
+            string sinput = "";
+            int input = -1; 
             Console.WriteLine("Come buy supplies at the Lemonade Supply Store\nDISCLAIMER: WE ARE NOT A FRONT FOR DRUGS");
-            Console.WriteLine("Prices: Lemon - 50 cents each\nSugar Cubes - 10 cent each\nIce Cubes - 1 cent each\nPaper Cups - 25 cents each ");
+            bool cont = true;
+
+            while (cont = true){ 
+                Console.WriteLine("Prices: \n1.)Lemon - 50 cents each\n2.)Sugar Cubes - 10 cent each\n3.)Ice Cubes - 1 cent each\n4.)Paper Cups - 25 cents each \n5.)Exit");
+                Console.WriteLine("Please enter the number that corresponds with which item you would like to buy: "); 
+                while (input <= 0 || input > 5){ 
+                    input = Convert.ToInt32(Console.ReadLine()); 
+                }
+
+                if(input == 1){  //lemons
+                    SellLemons(player);
+                }else if (input == 2){ //sugar cubes
+                    SellSugarCubes(player);
+                }else if (input == 3){ //ice cubes
+                    SellIceCubes(player);
+                }else if (input == 4){ //paper cups
+                    SellCups(player);        
+                } 
+
+                input = -1; //reset to be able to purchase more if necessary
+                Console.WriteLine("Remaining money: {0}", wallet.Money);
+
+                while(sinput != "yes" && sinput != "no"){                    
+                    Console.WriteLine("Purchase more items?\nEnter 'yes' or 'no'");
+                    sinput = Console.ReadLine();
+                }    
+                
+                if(sinput == "no"){ 
+                    if(player.inventory.lemons.Count > 0 && player.inventory.sugarCubes.Count > 0 && player.inventory.iceCubes.Count > 0 && player.inventory.cups.Count > 0){
+                        cont = false; 
+                    } else { 
+                        Console.Clear();
+                        Console.WriteLine("You have not purchased at least one of every item. Please try again and ensure you have purchased enough items."); 
+                        Console.WriteLine("Lemons: {0}\nSugar Cubes: {1}\nIce Cubes: {2}\nPaper Cups: {3}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count);
+                    }
+                }
+            }           
         }
+
+
     }
 }
