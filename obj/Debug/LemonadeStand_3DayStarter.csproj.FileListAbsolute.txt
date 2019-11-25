@@ -1,0 +1,13 @@
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.exe.config
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.exe
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.pdb
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.csprojAssemblyReference.cache
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.exe
+C:\Users\mhein\Desktop\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.pdb
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.csprojAssemblyReference.cache
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.csproj.CoreCompileInputs.cache
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.exe
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\obj\Debug\LemonadeStand_3DayStarter.pdb
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.exe.config
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.exe
+C:\Users\bryce\Desktop\CSharp\LemonadeStand_3DayStarter\bin\Debug\LemonadeStand_3DayStarter.pdb
