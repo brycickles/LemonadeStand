@@ -43,18 +43,27 @@ namespace LemonadeStand_3DayStarter
         {
             string input = "";
             //turn it to int currentday
-            foreach(var currentDay in days)
+            foreach(Day currentDay in days)
             {
                 //welcome message to display at start of each day. 
                 int counter = 1; 
                 currentDay.Welcome(player.wallet, player.inventory, counter);
                 counter++;
 
+                //get the weather 
+                Console.WriteLine("The projected weather today is somewhere around 75 degrees and clear skies");
+                currentDay.weather.GenerateTemp(); 
+                currentDay.weather.GenerateWeather();
+                int actualTemp = currentDay.weather.actualTemperature;
+                string actualConditions = currentDay.weather.condition;
+                Console.WriteLine("Press enter to continue.");
+                Console.ReadLine();
+                Console.Clear();
+                
                 //handles all buying requirements before learning about the weather. 
                 store.DisplayStore(player.wallet, player);
 
-                //get the weather 
-
+                
                 //make lemonade
 
                 //run game

@@ -9,7 +9,7 @@ namespace LemonadeStand_3DayStarter
     class Day
     {
         Random random = new Random(); //used throughout
-        Weather weather;
+        public Weather weather;
 
 
 
