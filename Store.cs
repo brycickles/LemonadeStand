@@ -17,7 +17,7 @@ namespace LemonadeStand_3DayStarter
         // constructor (SPAWNER)
         public Store()
         {
-            pricePerLemon = .5;
+            pricePerLemon = .05;
             pricePerSugarCube = .1;
             pricePerIceCube = .01;
             pricePerCup = .25;
@@ -88,7 +88,7 @@ namespace LemonadeStand_3DayStarter
 
             while (cont == true){ 
                 Console.WriteLine("Lemons: {0}   Sugar Cubes: {1}   Ice Cubes: {2}  Paper Cups: {3}     Bankroll: {4}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count, wallet.Money);
-                Console.WriteLine("Prices: \n1.)Lemon - 50 cents each\n2.)Sugar Cubes - 10 cent each\n3.)Ice Cubes - 1 cent each\n4.)Paper Cups - 25 cents each \n5.)Exit");
+                Console.WriteLine("Prices: \n1.)Lemon - 5 cents each\n2.)Sugar Cubes - 10 cent each\n3.)Ice Cubes - 1 cent each\n4.)Paper Cups - 25 cents each \n5.)Exit");
                 Console.WriteLine("Please enter the number that corresponds with which item you would like to buy: "); 
                 while (input <= 0 || input > 4){ 
                     input = Convert.ToInt32(Console.ReadLine()); 

@@ -51,7 +51,7 @@ namespace LemonadeStand_3DayStarter
                 counter++;
 
                 //get the weather 
-                Console.WriteLine("The projected weather today is somewhere around 75 degrees and clear skies");
+                Console.WriteLine("The projected weather today is somewhere around 75 degrees and {0}", currentDay.weather.condition);
                 currentDay.weather.GenerateTemp(); 
                 currentDay.weather.GenerateWeather();
                 int actualTemp = currentDay.weather.actualTemperature;
@@ -64,7 +64,7 @@ namespace LemonadeStand_3DayStarter
                 store.DisplayStore(player.wallet, player);
                
                 //make lemonade
-                //player.inventory.pitcher.MakePitcher(player.inventory);
+                player.inventory.pitcher.MakePitcher(player.inventory);
 
 
                 //run game
