@@ -29,41 +29,53 @@ namespace LemonadeStand_3DayStarter
         {
             string sinput = "";
             string ssinput = "";
+            string sssinput = "";
+            bool cont = true;
             Console.Clear();
-            Console.WriteLine("Its time to make your lemonade recipe. The base recipe consists of: \n{0} per cup\n{1} lemons per pitcher\n{2} sugar cubes per pitcher\n{3} Ice Cubes per cup",pricePerCup, lemonsInPitcher, sugarPerPitcher, icePerPitcher);
+            Console.WriteLine("Its time to make your lemonade recipe. The base recipe consists of: \n${0} per cup\n{1} lemons per pitcher\n{2} sugar cubes per pitcher\n{3} Ice Cubes per cup",pricePerCup, lemonsInPitcher, sugarPerPitcher, icePerPitcher);
             
             while(sinput != "yes" && sinput != "no"){ 
                 Console.WriteLine("You have {0} lemons, {1} sugar cubes, {2} ice cubes, and {3} cups\nWould you like to adjust the recipe at all?", inventory.lemons.Count, inventory.sugarCubes.Count, inventory.iceCubes.Count, inventory.cups.Count);
                 Console.WriteLine("Enter 'yes' or 'no;");
                 sinput = Console.ReadLine();
             }
+            
+            while(cont == true){               
+                if (sinput == "yes"){ 
+                    while(ssinput != "lemons" && ssinput != "sugar" && ssinput != "ice" && ssinput != "cups"){                    
+                    Console.WriteLine("enter 'lemons', 'sugar', 'ice', or 'cups' (cup price) to change a value"); 
+                        ssinput = Console.ReadLine();
+                    }
 
-            if (sinput == "yes"){ 
-                while(ssinput != "lemons" && ssinput != "sugar" && ssinput != "ice" && ssinput != "cups"){                    
-                Console.WriteLine("enter 'lemons', 'sugar', 'ice', or 'cups' (cup price) to change a value"); 
-                    ssinput = Console.ReadLine();
+                    if(ssinput == "lemons"){ 
+                        Console.WriteLine("You currently have {0} lemons in your recipe and a total of {1} lemons",lemonsInPitcher, inventory.lemons.Count);
+                        lemonsInPitcher = changeValue(lemonsInPitcher, inventory.lemons.Count);
+                        Console.WriteLine("You now are using {0} lemons per pitcher", lemonsInPitcher); 
+                    } else if (ssinput == "sugar"){
+                        Console.WriteLine("You currently have {0} sugar cubes in your recipe and a total of {1} sugar cubes",sugarPerPitcher, inventory.sugarCubes.Count);
+                        sugarPerPitcher = changeValue(sugarPerPitcher, inventory.sugarCubes.Count);
+                        Console.WriteLine("You now are using {0} sugar cubes per pitcher", sugarPerPitcher); 
+                    } else if (ssinput == "ice"){ 
+                        Console.WriteLine("You currently have {0} ice cubes in your recipe and a total of {1} ice cubes",icePerPitcher, inventory.iceCubes.Count);
+                        icePerPitcher = changeValue(icePerPitcher, inventory.iceCubes.Count);
+                        Console.WriteLine("You now are using {0} ice cubes per pitcher", icePerPitcher); 
+                    } else if (ssinput == "cups"){ 
+                        Console.WriteLine("You currently have {0} as a price per cup in your recipe and a total of {1} cups",pricePerCup, inventory.cups.Count);
+                        pricePerCup = changeCupsPrice(pricePerCup, inventory.cups.Count);
+                        Console.WriteLine("You now are using {0} as a price for each cup", pricePerCup); 
+                    }
+                
+                    while (sssinput != "yes" && sssinput != "no"){ 
+                        Console.WriteLine("Change any other values? Enter 'yes' to change another value, 'no' to continue on.");
+                        sssinput = Console.ReadLine;
+                    }
+                    if (sssinput == "no"){ 
+                        cont = false;
+                    }
                 }
-
-                if(ssinput == "lemons"){ 
-                    Console.WriteLine("You currently have {0} lemons in your recipe and a total of {1} lemons",lemonsInPitcher, inventory.lemons.Count);
-                    lemonsInPitcher = changeValue(lemonsInPitcher, inventory.lemons.Count);
-                    Console.WriteLine("You now are using {0} lemons per pitcher", lemonsInPitcher); 
-                } else if (ssinput == "sugar"){
-                    Console.WriteLine("You currently have {0} sugar cubes in your recipe and a total of {1} sugar cubes",sugarPerPitcher, inventory.sugarCubes.Count);
-                    sugarPerPitcher = changeValue(sugarPerPitcher, inventory.sugarCubes.Count);
-                    Console.WriteLine("You now are using {0} sugar cubes per pitcher", sugarPerPitcher); 
-                } else if (ssinput == "ice"){ 
-                    Console.WriteLine("You currently have {0} ice cubes in your recipe and a total of {1} ice cubes",icePerPitcher, inventory.iceCubes.Count);
-                    icePerPitcher = changeValue(icePerPitcher, inventory.iceCubes.Count);
-                    Console.WriteLine("You now are using {0} ice cubes per pitcher", icePerPitcher); 
-                } else if (ssinput == "cups"){ 
-                    Console.WriteLine("You currently have {0} as a price per cup in your recipe and a total of {1} cups",pricePerCup, inventory.cups.Count);
-                    pricePerCup = changeCupsPrice(pricePerCup, inventory.cups.Count);
-                    Console.WriteLine("You now are using {0} ice cubes per pitcher", pricePerCup); 
-                }
-
 
             }
+
 
         
         }

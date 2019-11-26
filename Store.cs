@@ -95,6 +95,8 @@ namespace LemonadeStand_3DayStarter
                     if (input == 5){
                         break;
                         //return; //this would end the entire function
+                    } else if(input > 5){
+                        Console.WriteLine("Value exceeds choice. Enter choice value again!");
                     }
                     
                 }
