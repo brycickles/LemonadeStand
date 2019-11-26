@@ -13,7 +13,7 @@ namespace LemonadeStand_3DayStarter
         public List<SugarCube> sugarCubes;
         public List<IceCube> iceCubes;
         public List<Cup> cups;
-
+        public Pitcher pitcher; 
         // constructor (SPAWNER)
         public Inventory()
         {
@@ -21,6 +21,7 @@ namespace LemonadeStand_3DayStarter
             sugarCubes = new List<SugarCube>();
             iceCubes = new List<IceCube>();
             cups = new List<Cup>();
+            pitcher = new Pitcher();
         }
 
         // member methods (CAN DO)

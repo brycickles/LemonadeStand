@@ -8,12 +8,24 @@ namespace LemonadeStand_3DayStarter
 {
     class Customer
     {
+         
         List<string> names;
         private string name;
+
+        private double money; 
+
+        
+
+        public void PayMoneyForItems(double transactionAmount)
+        {
+            money -= transactionAmount;
+        }
 
         public Customer()
         {
             names = new List<string>();
+
+            money = 100.00; //i swear if you figure out a way to exceed 100 in individual sales...           
             names.Add("Wallace");
             names.Add("Bill");
             names.Add("Doreen");

@@ -86,11 +86,17 @@ namespace LemonadeStand_3DayStarter
             Console.WriteLine("Come buy supplies at the Lemonade Supply Store\nDISCLAIMER: WE ARE NOT A FRONT FOR DRUGS");
             bool cont = true;
 
-            while (cont = true){ 
+            while (cont == true){ 
+                Console.WriteLine("Lemons: {0}   Sugar Cubes: {1}   Ice Cubes: {2}  Paper Cups: {3}     Bankroll: {4}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count, wallet.Money);
                 Console.WriteLine("Prices: \n1.)Lemon - 50 cents each\n2.)Sugar Cubes - 10 cent each\n3.)Ice Cubes - 1 cent each\n4.)Paper Cups - 25 cents each \n5.)Exit");
                 Console.WriteLine("Please enter the number that corresponds with which item you would like to buy: "); 
-                while (input <= 0 || input > 5){ 
+                while (input <= 0 || input > 4){ 
                     input = Convert.ToInt32(Console.ReadLine()); 
+                    if (input == 5){
+                        break;
+                        //return; //this would end the entire function
+                    }
+                    
                 }
 
                 if(input == 1){  //lemons
@@ -101,7 +107,7 @@ namespace LemonadeStand_3DayStarter
                     SellIceCubes(player);
                 }else if (input == 4){ //paper cups
                     SellCups(player);        
-                } 
+                }
 
                 input = -1; //reset to be able to purchase more if necessary
                 Console.WriteLine("Remaining money: {0}", wallet.Money);
@@ -109,8 +115,9 @@ namespace LemonadeStand_3DayStarter
                 while(sinput != "yes" && sinput != "no"){                    
                     Console.WriteLine("Purchase more items?\nEnter 'yes' or 'no'");
                     sinput = Console.ReadLine();
-                }    
-                
+                    Console.Clear();
+                }         
+
                 if(sinput == "no"){ 
                     if(player.inventory.lemons.Count > 0 && player.inventory.sugarCubes.Count > 0 && player.inventory.iceCubes.Count > 0 && player.inventory.cups.Count > 0){
                         cont = false; 
@@ -120,6 +127,7 @@ namespace LemonadeStand_3DayStarter
                         Console.WriteLine("Lemons: {0}\nSugar Cubes: {1}\nIce Cubes: {2}\nPaper Cups: {3}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count);
                     }
                 }
+                sinput = "";
             }           
         }
 
