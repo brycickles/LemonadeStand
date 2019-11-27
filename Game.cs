@@ -44,6 +44,7 @@ namespace LemonadeStand_3DayStarter
         public void RunGame()
         {
             int counter = 1; 
+            int customerCount = 0;
             //turn it to int currentday
             foreach(Day currentDay in days)
             {
@@ -51,10 +52,9 @@ namespace LemonadeStand_3DayStarter
                 currentDay.Welcome(player.wallet, player.inventory, counter);
                 counter++;
                 bool endDay = true;
-
-                currentDay.weather.GenerateRandomWeather();
+                
                 //get the weather 
-                Console.WriteLine("The projected weather today is somewhere around 75 degrees and {0}", currentDay.weather.condition);
+                Console.WriteLine("The projected weather today is somewhere around 75 +/-10 degrees and {0}", currentDay.weather.condition);
                 currentDay.weather.GenerateTemp(); 
                 currentDay.weather.GenerateWeather();
                 int actualTemp = currentDay.weather.actualTemperature;
@@ -62,14 +62,6 @@ namespace LemonadeStand_3DayStarter
                 Console.WriteLine("Press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
-                
-                //handles all buying requirements before learning about the weather. 
-                store.DisplayStore(player.wallet, player);
-               
-                //make lemonade
-                player.inventory.pitcher.MakePitcher(player.inventory);
-                DisplayRecipe(player);
-               
 
                 //set customer amounts based off weatherconditions
                 //rainy 75, cloudy 100, sunny 150
@@ -86,37 +78,71 @@ namespace LemonadeStand_3DayStarter
                         customerList.Add(new Customer());
                     }
                 }
-
-                Console.Clear();
-                Console.WriteLine("Customers begin to line up near your stand. It is {0} degrees and the weather is {1}", actualTemp, actualConditions);
-                Console.WriteLine("Press Enter to begin your day.");
+                
+                //handles all buying requirements before learning about the weather. 
+                store.DisplayStore(player.wallet, player);
+               
+                //make lemonade and subtract your pitcher ingredients from your inventory
+                player.inventory.pitcher.MakePitcher(player.inventory);                
+                player.inventory.pitcher.SubtractIngredientsFromInventory(player.inventory);
+                DisplayRecipe(player);               
+                
+                Console.WriteLine("Customers begin to line up at your stand. The day will begin shortly.\nPress Enter to continue.");
                 Console.ReadLine();
+                Console.Clear();
 
-                foreach(Customer customers in customerList){ 
-                    
-                    customers.generatePropensityToBuy(customers ,currentDay.weather.actualTemperature);
-                    if(customers.willBuy == true){ 
-                        customers.PayMoneyForItems(player.inventory.pitcher.pricePerCup);
-                        player.inventory.pitcher.cupsLeftInPitcher -= 1;
+
+                Console.WriteLine("Weather Conditions: {0} degrees and {1}", actualTemp, actualConditions);               
+                
+                
+                for(int i = 0; i < customerList.Count; i++){
+                    Customer c = new Customer(); 
+                    c.generatePropensityToBuy(c, actualTemp);
+                    if(c.willBuy == true){ 
+                        customerCount++; //someone bought a cuppa. Joy. 
+                        c.PayMoneyForItems(player.inventory.pitcher.pricePerCup);
+                        player.wallet.GetMoney(player.inventory.pitcher.pricePerCup);
+                        player.inventory.pitcher.cupsLeftInPitcher -= 1; //really the only thing we need to track is how many cups remain
+
                         if(player.inventory.pitcher.cupsLeftInPitcher == 0){ 
-                           endDay = checkToRefillPitcher(player);
-                           if (endDay == false){ 
-                                return;
-                           }
+                            if(player.inventory.lemons.Count < player.inventory.pitcher.lemonsInPitcher){ 
+                                Console.WriteLine("Not enough lemons left in inventory to support your lifestyle choices");
+                                break;
+                            } else if(player.inventory.sugarCubes.Count < player.inventory.pitcher.sugarPerPitcher){ 
+                                Console.WriteLine("Not enough sugar cubes left in inventory to support your lifestyle choices");
+                                break;
+                            } else if(player.inventory.iceCubes.Count < player.inventory.pitcher.icePerPitcher) { 
+                                Console.WriteLine("Not enough lce cubes left in inventory to support your lifestyle choices");
+                                break;
+                            } else if(player.inventory.cups.Count < 16) { 
+                                Console.WriteLine("Not enough cups left in inventory to support your lifestyle choices");
+                                break;
+                            }else { 
+                                //do the refill logic here
+                                player.inventory.pitcher.cupsLeftInPitcher = 16;
+                                player.inventory.cups.RemoveRange(0, 16);
+                                player.inventory.lemons.RemoveRange(0, player.inventory.pitcher.lemonsInPitcher);
+                                player.inventory.sugarCubes.RemoveRange(0, player.inventory.pitcher.sugarPerPitcher);
+                                player.inventory.iceCubes.RemoveRange(0, player.inventory.pitcher.icePerPitcher);
+                            
+                            }
                         }
+
+                       
+
                     }
                 }
 
-                //iterate through the loop and manipulate objects 
-                //foreach 
-                //     check if bool willBuy is true 
-                //      purchase a cup 
-
-                //run game
+                Console.WriteLine("{0} customers bought lemonade today!", customerCount); 
+                customerCount = 0;
+                Console.WriteLine("Ready for the next day? \nPress enter to continue");
+                Console.ReadLine();
+               
             }
 
         }
 
+        
         public bool checkToRefillPitcher(Player player){
             bool cont = true;
             int lemonsInInventory = player.inventory.lemons.Count;
@@ -133,10 +159,10 @@ namespace LemonadeStand_3DayStarter
                 if((lemonsNeededForRecipe <= lemonsInInventory) && (iceNeededForRecipe <= iceInInventory) && (sugarNeededForRecipe <= sugarInInventory) && (cupsInInventory > 16)){
                     //if we have enough to actually make the recipe
                     player.inventory.pitcher.cupsLeftInPitcher = 16;
-                    lemonsInInventory -= lemonsNeededForRecipe; 
-                    cupsInInventory -= 16;
-                    sugarInInventory -= sugarNeededForRecipe; 
-                    iceInInventory -= iceNeededForRecipe;
+                    player.inventory.lemons.RemoveRange(0, lemonsNeededForRecipe); 
+                    player.inventory.cups.RemoveRange(0, 16);
+                    player.inventory.sugarCubes.RemoveRange(0, sugarInInventory);
+                    player.inventory.iceCubes.RemoveRange(0, iceInInventory);
                     return cont;
                 } else{ 
                     Console.WriteLine("Not enough ingredients left, day is over!"); 
@@ -157,6 +183,8 @@ namespace LemonadeStand_3DayStarter
             Console.WriteLine("{0} Ice Cubes", player.inventory.pitcher.icePerPitcher);
             Console.WriteLine("{0} Sugar Cubes", player.inventory.pitcher.sugarPerPitcher);
             Console.WriteLine("{0} Paper Cups", 16);
+            Console.WriteLine("\nYour new current totals before start of day: \n {0} lemons, {1} ice cubes, {2} sugar cubes, {3} cups", player.inventory.lemons.Count, player.inventory.iceCubes.Count, player.inventory.sugarCubes.Count, player.inventory.cups.Count);
+
         }
     }
 }

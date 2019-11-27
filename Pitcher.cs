@@ -86,6 +86,14 @@ namespace LemonadeStand_3DayStarter
         
         }
 
+        public void SubtractIngredientsFromInventory(Inventory inventory){
+            inventory.lemons.RemoveRange(0, inventory.pitcher.lemonsInPitcher);
+            inventory.iceCubes.RemoveRange(0, inventory.pitcher.icePerPitcher);
+            inventory.sugarCubes.RemoveRange(0, inventory.pitcher.sugarPerPitcher);
+            inventory.cups.RemoveRange(0,16);
+        
+        }
+
         public int changeValue(int item, int totalNumber){
             item = -1; 
             while(item < 0 || item > totalNumber){
