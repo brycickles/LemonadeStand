@@ -8,6 +8,7 @@ namespace LemonadeStand_3DayStarter
 {
     class Day
     {
+        public Customer customer = new Customer();
         Random random = new Random(); //used throughout
         public Weather weather;
 
@@ -49,5 +50,6 @@ namespace LemonadeStand_3DayStarter
             Console.WriteLine("Welcome to day {5}- you have ${0} and your inventory consists of\n{1} Lemons\n{2} Cups\n{3} Cups of Sugar\n{4} Ice Cubes", wallet.Money, inventory.lemons.Count(), inventory.cups.Count(), inventory.sugarCubes.Count(), inventory.iceCubes.Count(), currentDay);
             Console.ReadLine();
         }
+    
     }
 }
