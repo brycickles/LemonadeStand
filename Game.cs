@@ -43,6 +43,7 @@ namespace LemonadeStand_3DayStarter
         // member methods
         public void RunGame()
         {
+            bool willBuy = false;
             int counter = 1; 
             int customerCount = 0;
             //turn it to int currentday
@@ -64,21 +65,8 @@ namespace LemonadeStand_3DayStarter
                 Console.Clear();
 
                 //set customer amounts based off weatherconditions
-                //rainy 75, cloudy 100, sunny 150
-                if(actualConditions == "rainy"){ 
-                    for (int i = 0; i < 75; i++){
-                        customerList.Add(new Customer());
-                    }                    
-                }else if (actualConditions =="cloudy"){ 
-                    for (int i = 0; i < 100; i++){
-                        customerList.Add(new Customer());
-                    }
-                }else if (actualConditions == "sunny"){
-                    for (int i = 0; i < 150; i++){
-                        customerList.Add(new Customer());
-                    }
-                }
-                
+                //rainy 75, cloudy 100, sunny 15
+
                 //handles all buying requirements before learning about the weather. 
                 store.DisplayStore(player.wallet, player);
                
@@ -92,13 +80,22 @@ namespace LemonadeStand_3DayStarter
                 Console.Clear();
 
 
-                Console.WriteLine("Weather Conditions: {0} degrees and {1}", actualTemp, actualConditions);               
+                Console.WriteLine("Weather Conditions: {0} degrees and {1}", actualTemp, actualConditions);   
                 
-                
-                for(int i = 0; i < customerList.Count; i++){
-                    Customer c = new Customer(); 
-                    c.generatePropensityToBuy(c, actualTemp);
-                    if(c.willBuy == true){ 
+                //determine customer base size
+                int customerBase = 0;
+                if(actualConditions == "rainy"){ 
+                    customerBase = 75;                                      
+                }else if (actualConditions =="cloudy"){ 
+                    customerBase = 100;              
+                }else if (actualConditions == "sunny"){
+                    customerBase = 150;
+                }
+                Random random = new Random();
+                for(int i = 0; i < customerBase; i++){
+                    Customer c = new Customer(random); 
+                    c.generatePropensityToBuy(actualTemp);                   
+                    if(c.willBuy == true){
                         customerCount++; //someone bought a cuppa. Joy. 
                         c.PayMoneyForItems(player.inventory.pitcher.pricePerCup);
                         player.wallet.GetMoney(player.inventory.pitcher.pricePerCup);
@@ -123,13 +120,9 @@ namespace LemonadeStand_3DayStarter
                                 player.inventory.cups.RemoveRange(0, 16);
                                 player.inventory.lemons.RemoveRange(0, player.inventory.pitcher.lemonsInPitcher);
                                 player.inventory.sugarCubes.RemoveRange(0, player.inventory.pitcher.sugarPerPitcher);
-                                player.inventory.iceCubes.RemoveRange(0, player.inventory.pitcher.icePerPitcher);
-                            
+                                player.inventory.iceCubes.RemoveRange(0, player.inventory.pitcher.icePerPitcher);                            
                             }
                         }
-
-                       
-
                     }
                 }
 
@@ -139,40 +132,6 @@ namespace LemonadeStand_3DayStarter
                 Console.ReadLine();
                
             }
-
-        }
-
-        
-        public bool checkToRefillPitcher(Player player){
-            bool cont = true;
-            int lemonsInInventory = player.inventory.lemons.Count;
-            int sugarInInventory = player.inventory.sugarCubes.Count;
-            int iceInInventory = player.inventory.iceCubes.Count; 
-
-            int lemonsNeededForRecipe = player.pitcher.lemonsInPitcher;
-            int iceNeededForRecipe = player.pitcher.icePerPitcher; 
-            int sugarNeededForRecipe = player.pitcher.sugarPerPitcher;
-          
-            int cupsInInventory = player.inventory.cups.Count; 
-            
-            if (player.inventory.pitcher.cupsLeftInPitcher == 0){
-                if((lemonsNeededForRecipe <= lemonsInInventory) && (iceNeededForRecipe <= iceInInventory) && (sugarNeededForRecipe <= sugarInInventory) && (cupsInInventory > 16)){
-                    //if we have enough to actually make the recipe
-                    player.inventory.pitcher.cupsLeftInPitcher = 16;
-                    player.inventory.lemons.RemoveRange(0, lemonsNeededForRecipe); 
-                    player.inventory.cups.RemoveRange(0, 16);
-                    player.inventory.sugarCubes.RemoveRange(0, sugarInInventory);
-                    player.inventory.iceCubes.RemoveRange(0, iceInInventory);
-                    return cont;
-                } else{ 
-                    Console.WriteLine("Not enough ingredients left, day is over!"); 
-                    cont = false; 
-                    return cont;
-                }            
-            }
-            return cont;
-            
-
         }
 
         public void DisplayRecipe(Player player){       

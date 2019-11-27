@@ -40,17 +40,6 @@ namespace LemonadeStand_3DayStarter
             condition = weatherConditions[el];
         }
 
-        public void GenerateRandomWeather()
-        {
-            int el = 0;
-            List<string> weatherConditions = new List<string>();
-            weatherConditions.Add("rainy");
-            weatherConditions.Add("cloudy");
-            weatherConditions.Add("sunny");
-
-            el = random.Next(0, 3); //test to make sure this is correct.I want range from 0 to 2 not between 0 and 2. Will return cloudy only when i run this if im wrong
-            condition = weatherConditions[el];
-        }
 
     }
 }

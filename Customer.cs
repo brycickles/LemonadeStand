@@ -14,9 +14,9 @@ namespace LemonadeStand_3DayStarter
         public int propensityToBuy; 
         private Random random; //used throughout
         
-        public Customer()
+        public Customer(Random rng)
         {
-            random = new Random();
+            random = rng;
             money = 100.00; //i swear if you figure out a way to exceed 100 in individual sales...           
 
         }
@@ -26,24 +26,25 @@ namespace LemonadeStand_3DayStarter
             money -= transactionAmount;
         }
 
-        public void generatePropensityToBuy(Customer customer, int temperature){
+        public bool generatePropensityToBuy(int temperature){
             int buyIndex = 0;
             buyIndex = random.Next(0, 100); 
             if(temperature > 75){ 
-                if(buyIndex >= 20){ 
-                    customer.willBuy = true;
+                if(buyIndex >= 35){ 
+                    willBuy = true;
                 } 
                 else { 
-                    customer.willBuy = false;
+                    willBuy = false;
                 }
             } else if (temperature > 65){ 
-                if(buyIndex >= 40){
-                    customer.willBuy = true; 
+                if(buyIndex >= 50){
+                    willBuy = true; 
                 } 
                 else { 
-                    customer.willBuy = false;
+                    willBuy = false;
                 }
-            }            
+            }
+            return willBuy;
         }
 
     }

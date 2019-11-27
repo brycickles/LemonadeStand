@@ -8,7 +8,7 @@ namespace LemonadeStand_3DayStarter
 {
     class Day
     {
-        public Customer customer = new Customer();
+        //public Customer customer = new Customer();
         Random random = new Random(); //used throughout
         public Weather weather;
 
