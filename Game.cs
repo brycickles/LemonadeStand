@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
@@ -13,7 +14,6 @@ namespace LemonadeStand_3DayStarter
         List<Customer> customerList;
         Player player;
         Store store;
-        
 
         // constructor
         public Game()
@@ -42,9 +42,7 @@ namespace LemonadeStand_3DayStarter
 
         // member methods
         public void RunGame()
-        {
-            bool willBuy = false;
-            int counter = 1; 
+        {   int counter = 1; 
             int customerCount = 0;
             //turn it to int currentday
             foreach(Day currentDay in days)
@@ -52,7 +50,6 @@ namespace LemonadeStand_3DayStarter
                 //welcome message to display at start of each day.                 
                 currentDay.Welcome(player.wallet, player.inventory, counter);
                 counter++;
-                bool endDay = true;
                 
                 //get the weather 
                 Console.WriteLine("The projected weather today is somewhere around 75 +/-10 degrees and {0}", currentDay.weather.condition);
@@ -130,6 +127,13 @@ namespace LemonadeStand_3DayStarter
                 customerCount = 0;
                 Console.WriteLine("Ready for the next day? \nPress enter to continue");
                 Console.ReadLine();
+
+                //melt the ice cubes and rot 20% of the lemons - this adds greater impact to scalability instead of initial days
+                double lemonGoneBad = player.inventory.lemons.Count * 0.2; //this is the double representation of number of lemons we will be removin
+                player.inventory.lemons.RemoveRange(0, Convert.ToInt32(lemonGoneBad));                
+                int iceCount = player.inventory.iceCubes.Count;
+                player.inventory.iceCubes.RemoveRange(0, iceCount);
+                Console.WriteLine("Some of your lemons have spoiled! You now have {0} lemons remaining.\nAll of your ice has melted too! You have 0 ice remaining.", player.inventory.lemons.Count);
                
             }
         }
