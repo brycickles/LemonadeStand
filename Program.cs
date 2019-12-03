@@ -12,15 +12,16 @@ namespace LemonadeStand_3DayStarter
     class Program
     {
 
-        public static async void LoadTempInfo()
+        public static async void LoadTemperatureInfo()
         {
-
-            var tempInfo = await TempProcessor.LoadWeatherInformation();
+            TempProcessor thing = new TempProcessor();
+            var tempInfo = await thing.LoadWeatherInformation();
             Console.WriteLine("Temperature is {0}", tempInfo.temp);
         }
+
         static void Main(string[] args)
         {
-            //LoadTempInfo();
+            //LoadTemperatureInfo();
             Game game = new Game();
             game.RunGame();    
         }

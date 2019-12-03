@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand_3DayStarter
 {
-    class TempProcessor
+    public class TempProcessor
     {
-        public static async Task<TempModel> LoadWeatherInformation()
+        public async Task<TempModel> LoadWeatherInformation()
         {
             string url = "https://samples.openweathermap.org/data/2.5/weather?zip=53074,us&appid=b6907d289e10d714a6e88b30761fae22";
-
+            ApiHelper.InitializeClient();
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)

@@ -20,32 +20,37 @@ namespace LemonadeStand_3DayStarter
         {
             //objects now come preinitialized
             store = new Store();
-            player = new Player();
-            days = new List<Day>();
+            player = new Player();            
             customerList = new List<Customer>();
             //note - because of initialization in constructor, each day object comes preinstantiated with its own weather, etc
-            Day d1 = new Day();
-            days.Add(d1);
-            Day d2 = new Day();
-            days.Add(d2);
-            Day d3 = new Day();
-            days.Add(d3);
-            Day d4 = new Day();
-            days.Add(d4);
-            Day d5 = new Day();
-            days.Add(d5);
-            Day d6 = new Day();
-            days.Add(d6);
-            Day d7 = new Day();
-            days.Add(d7);
+                
         }
 
         // member methods
         public void RunGame()
         {   int counter = 1; 
             int customerCount = 0;
-            //turn it to int currentday
-            foreach(Day currentDay in days)
+
+            string dayString = "-1";
+            int dayCount = 0;
+            while(Convert.ToInt32(dayString) < 0)
+            {
+                Console.WriteLine("How many days would you like to run your stand for?");
+                dayString = Console.ReadLine();
+            }
+            dayCount = Convert.ToInt32(dayString);
+
+            days = new List<Day>();
+
+            for (int i =0; i < dayCount; i++)
+            {
+                Day d = new Day();
+                days.Add(d);
+            }            
+            
+            
+
+            foreach (Day currentDay in days)
             {
                 //welcome message to display at start of each day.                 
                 currentDay.Welcome(player.wallet, player.inventory, counter);

@@ -37,7 +37,7 @@ namespace LemonadeStand_3DayStarter
 
         public void SellSugarCubes(Player player)
         {
-            int sugarToPurchase = UserInterface.GetNumberOfItems("sugar");
+            int sugarToPurchase = UserInterface.GetNumberOfItems("sugar cubes");
             double transactionAmount = CalculateTransactionAmount(sugarToPurchase, pricePerSugarCube);
             if(player.wallet.Money >= transactionAmount)
             {
@@ -87,8 +87,8 @@ namespace LemonadeStand_3DayStarter
             bool cont = true;
 
             while (cont == true){ 
-                Console.WriteLine("Lemons: {0}   Sugar Cubes: {1}   Ice Cubes: {2}  Paper Cups: {3}     Bankroll: {4}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count, wallet.Money);
-                Console.WriteLine("Prices: \n1.)Lemon - 5 cents each\n2.)Sugar Cubes - 10 cent each\n3.)Ice Cubes - 1 cent each\n4.)Paper Cups - 5 cents each \n5.)Exit");
+                Console.WriteLine("Lemons: {0}   Sugar Cubes: {1}   Ice Cubes: {2}  Paper Cups: {3}     Bankroll: {4}", player.inventory.lemons.Count, player.inventory.sugarCubes.Count, player.inventory.iceCubes.Count, player.inventory.cups.Count, ("$" + wallet.Money));
+                Console.WriteLine("Prices: \n1.)Lemon - {0} cents each\n2.)Sugar Cubes - {1} cents each\n3.)Ice Cubes - {2} cents each\n4.)Paper Cups - {3} cents each \n5.)Exit", (pricePerLemon * 100), (pricePerSugarCube * 100), (pricePerIceCube * 100), (pricePerCup * 100));
                 Console.WriteLine("Please enter the number that corresponds with which item you would like to buy: "); 
                 while (input <= 0 || input > 4){ 
                     input = Convert.ToInt32(Console.ReadLine()); 
